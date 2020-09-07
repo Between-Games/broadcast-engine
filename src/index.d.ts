@@ -5,10 +5,10 @@
 // ║ ╚═══╝ ║║ ║ ║ ╚═╗║ ╚═══╝ ║║ ║   ║ ║╔╝ ╚══╝ ║║ ╚═════╗║ ║   ║ ║╔═════╝ ║   ║ ║            ║ ╚═════╗║ ║║ ╚╝ ║║ ╚═══╝ ║╔══╝ ╚══╗║ ║║ ╚╝ ║║ ╚═════╗╔═╗╔╝ ╚══╝ ║╔═╗   ║ ║   ╔═════╝ ║
 // ╚═══════╝╚═╝ ╚═══╝╚═══════╝╚═╝   ╚═╝╚═══════╝╚═══════╝╚═╝   ╚═╝╚═══════╝   ╚═╝            ╚═══════╝╚═╝╚════╝╚═══════╝╚═══════╝╚═╝╚════╝╚═══════╝╚═╝╚═══════╝╚═╝   ╚═╝   ╚═══════╝
 
-export function returnTrue(): boolean;
-export function returnFalse(): boolean;
+export function on(channelName: any, eventName: string, listener: any): void;
+export function emit(channelName: any, eventName: string, ...parameters: any): void;
 
 declare module 'broadcastEngine' {
-    export function returnTrue(): boolean;
-    export function returnFalse(): boolean;
+    export function on(channelName: any, eventName: string, listener: any): void;
+    export function emit(channelName: any, eventName: string, ...parameters: any): void;
 }

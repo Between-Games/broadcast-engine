@@ -15,6 +15,7 @@ module.exports = {
     output: {
         filename: 'index.js',
         library: 'broadcastEngine',
+        libraryExport: 'default',
         libraryTarget: 'umd',
         globalObject: 'this',
         path: path.resolve(__dirname, 'dist'),
