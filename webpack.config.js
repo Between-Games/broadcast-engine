@@ -14,10 +14,15 @@ module.exports = {
 
     output: {
         filename: 'index.js',
-        library: 'xxxEngine',
+        library: 'broadcastEngine',
+        libraryExport: 'default',
         libraryTarget: 'umd',
         globalObject: 'this',
         path: path.resolve(__dirname, 'dist'),
+    },
+
+    externals: {
+        events: 'events',
     },
 
     plugins: [
