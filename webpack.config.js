@@ -21,6 +21,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
     },
 
+    externals: {
+        events: 'events',
+    },
+
     plugins: [
         new CopyPlugin({
             patterns: [
