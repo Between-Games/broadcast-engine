@@ -18,7 +18,10 @@ import utilityEngine from '@sarc-test/utility-engine';
 
 import broadcastEngine from '../dist/index.js';
 
+import spies from 'chai-spies';
 import chai from 'chai';
+
+chai.use(spies);
 
 const expect = chai.expect;
 
@@ -28,14 +31,6 @@ const expect = chai.expect;
 //  ║ ║  ║ ║║ ╔═════╝║ ║      ║ ║      ║ ╔═══╗ ║║ ╔═╗ ╔═╝║ ╔═════╝
 // ╔╝ ╚══╝ ║║ ╚═════╗║ ╚═════╗║ ╚═════╗║ ║   ║ ║║ ║ ║ ╚═╗║ ╚═════╗
 // ╚═══════╝╚═══════╝╚═══════╝╚═══════╝╚═╝   ╚═╝╚═╝ ╚═══╝╚═══════╝
-
-broadcastEngine('user').once('onPasswordChange', function(...parameters) {
-    console.log('onPasswordChange', ...parameters);
-});
-
-broadcastEngine('user').emit('onPasswordChange', {'1': 'a'});
-broadcastEngine('user').emit('onPasswordChange', {'1': 'a'});
-broadcastEngine('user').emit('onPasswordChange', {'1': 'a'});
 
 function isEventEmitter(value) {
     return utilityEngine.isObject(value) &&
@@ -62,7 +57,76 @@ describe('Default', function() {
 
     describe('#(channelName)', function() {
         describe('#(channelName)', function() {
+            it('Should call the spy function when event is subscribed too', () => {
+                const spy = chai.spy(function() {});
 
+                broadcastEngine('spy').on('spy', spy);
+
+                broadcastEngine('spy').emit('spy', 1);
+
+                expect(spy).to.have.been.called();
+            });
+
+            it('Should not call the spy function when not subscribed to channel', () => {
+                const spy = chai.spy(function() {});
+
+                broadcastEngine('spy').on('spy', spy);
+
+                broadcastEngine('notSpy').emit('spy', 1);
+
+                expect(spy).to.not.have.been.called();
+            });
+
+            it('Should not call the spy function when not subscribed to event', () => {
+                const spy = chai.spy(function() {});
+
+                broadcastEngine('spy').on('spy', spy);
+
+                broadcastEngine('spy').emit('notSpy', 1);
+
+                expect(spy).to.not.have.been.called();
+            });
+
+            it('Should call spy function with parameters when provided while emitting event', () => {
+                const spy = chai.spy(function() {});
+
+                broadcastEngine('spy').on('spy', spy);
+
+                broadcastEngine('spy').emit('spy', 1, 2, 3);
+
+                expect(spy).to.have.been.called.with(1, 2, 3);
+            });
+
+            it('Should call spy function with no parameters when none are provided while emitting event', () => {
+                const spy = chai.spy(function() {});
+
+                broadcastEngine('spy').on('spy', spy);
+
+                broadcastEngine('spy').emit('spy', 1);
+
+                expect(spy).to.have.not.been.called.with(1, 2, 3);
+            });
+
+            it('Should call spy function only once when specified as such', () => {
+                const spy = chai.spy(function() {});
+
+                broadcastEngine('spy').once('spy', spy);
+
+                broadcastEngine('spy').emit('spy', 1);
+
+                expect(spy).to.have.been.called.once;
+            });
+
+            it('Should call spy function twice once when event is emitted only twice', () => {
+                const spy = chai.spy(function() {});
+
+                broadcastEngine('spy').on('spy', spy);
+
+                broadcastEngine('spy').emit('spy', 1);
+                broadcastEngine('spy').emit('spy', 2);
+
+                expect(spy).to.have.been.called.twice;
+            });
         });
 
         describe('#(CHANNELNAME)', function() {
