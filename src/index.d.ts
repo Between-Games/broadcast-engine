@@ -5,10 +5,8 @@
 // ║ ╚═══╝ ║║ ║ ║ ╚═╗║ ╚═══╝ ║║ ║   ║ ║╔╝ ╚══╝ ║║ ╚═════╗║ ║   ║ ║╔═════╝ ║   ║ ║            ║ ╚═════╗║ ║║ ╚╝ ║║ ╚═══╝ ║╔══╝ ╚══╗║ ║║ ╚╝ ║║ ╚═════╗╔═╗╔╝ ╚══╝ ║╔═╗   ║ ║   ╔═════╝ ║
 // ╚═══════╝╚═╝ ╚═══╝╚═══════╝╚═╝   ╚═╝╚═══════╝╚═══════╝╚═╝   ╚═╝╚═══════╝   ╚═╝            ╚═══════╝╚═╝╚════╝╚═══════╝╚═══════╝╚═╝╚════╝╚═══════╝╚═╝╚═══════╝╚═╝   ╚═╝   ╚═══════╝
 
-export function returnTrue(): boolean;
-export function returnFalse(): boolean;
+export default function(channelName: any): object
 
 declare module 'broadcastEngine' {
-    export function returnTrue(): boolean;
-    export function returnFalse(): boolean;
+    export default function(channelName: any): object
 }
